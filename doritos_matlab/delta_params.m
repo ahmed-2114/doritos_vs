@@ -69,10 +69,10 @@ function params = delta_params()
     % =====================================================================
     % GEOMETRY  -- edit these four numbers to match your robot
     % =====================================================================
-    params.Rb = 0.200;          % [m]  base circumradius
-    params.Rp = 0.060;          % [m]  moving-platform circumradius
-    params.L1 = 0.200;          % [m]  upper-arm length
-    params.L2 = 0.400;          % [m]  forearm length
+    params.Rb = 0.05704;        % [m]  base circumradius
+    params.Rp = 0.03500;        % [m]  moving-platform circumradius
+    params.L1 = 0.08000;        % [m]  upper-arm length
+    params.L2 = 0.18000;        % [m]  forearm length
 
     % =====================================================================
     % CHAIN AZIMUTHS  (do NOT change unless your robot is non-symmetric)
@@ -82,8 +82,8 @@ function params = delta_params()
     % =====================================================================
     % JOINT LIMITS  -- set from your motor/servo hardware spec sheet
     % =====================================================================
-    params.th_min = deg2rad(-20);   % [rad]  most retracted position
-    params.th_max = deg2rad( 90);   % [rad]  most extended position
+    params.th_min = deg2rad(5);     % [rad]  most retracted position
+    params.th_max = deg2rad(100);   % [rad]  most extended position
 
     % =====================================================================
     % CARTESIAN WORKSPACE BOUNDING BOX  -- conservative initial estimate
