@@ -25,7 +25,7 @@ function [p, valid, err_msg] = delta_FK(params, theta)
 %
 %     E_i = [(Rb + L1*cos(theta_i))*cos(phi_i),
 %            (Rb + L1*cos(theta_i))*sin(phi_i),
-%             L1*sin(theta_i)]'
+%            -L1*sin(theta_i)]'
 %
 %   Because the platform attachment point is
 %     P_i = p + Rp*[cos(phi_i), sin(phi_i), 0]'
@@ -37,7 +37,7 @@ function [p, valid, err_msg] = delta_FK(params, theta)
 %     E_i' = E_i - Rp*[cos(phi_i), sin(phi_i), 0]'
 %          = [(Rb - Rp + L1*cos(theta_i))*cos(phi_i),
 %             (Rb - Rp + L1*cos(theta_i))*sin(phi_i),
-%              L1*sin(theta_i)]'
+%             -L1*sin(theta_i)]'
 %
 % STEP 2 — LINEARISE BY SPHERE SUBTRACTION
 %   We have three sphere equations:
@@ -68,10 +68,10 @@ function [p, valid, err_msg] = delta_FK(params, theta)
 %   where  [dx0; dy0; -E1z] is the constant part and [sx; sy; 1] the slope.
 %
 % STEP 4 — ROOT SELECTION
-%   The quadratic yields up to two real roots.  Since +Z points downward,
-%   the physically relevant (deeper) workspace root has the LARGER z value.
-%   The smaller root corresponds to a mirror position above the base, which
-%   is mechanically unreachable in normal delta-robot operation.
+%   The quadratic yields up to two real roots.  Since +Z points upward,
+%   the physically relevant workspace root below the base has the SMALLER
+%   z value (more negative). The larger root corresponds to a mirror
+%   position above the base, which is mechanically unreachable.
 %
 % =========================================================================
 % REFERENCES
@@ -107,7 +107,7 @@ function [p, valid, err_msg] = delta_FK(params, theta)
         cp   = cos(phi(i));
         sp   = sin(phi(i));
         r_i  = Rb - Rp + L1*cos(theta(i));   % effective horizontal reach
-        E(:,i) = [r_i*cp; r_i*sp; L1*sin(theta(i))];
+        E(:,i) = [r_i*cp; r_i*sp; -L1*sin(theta(i))];
     end
 
     % --- Step 2: Build linear system from sphere subtraction -------------
@@ -156,15 +156,14 @@ function [p, valid, err_msg] = delta_FK(params, theta)
     z1 = (-b_q + sqrt(disc)) / (2*a_q);
     z2 = (-b_q - sqrt(disc)) / (2*a_q);
 
-    % Select deeper root (+Z downward → larger z = deeper workspace)
-    z_sol = max(z1, z2);
+    % Select deeper root (+Z upward → smaller z = deeper workspace)
+    z_sol = min(z1, z2);
 
     x_sol = k_const(1) + k_slope(1)*z_sol;
     y_sol = k_const(2) + k_slope(2)*z_sol;
 
     p     = [x_sol; y_sol; z_sol];
     valid = true;
-    err_msg = '';
 
     % --- Optional residual verification ----------------------------------
     % (disabled in production; enable for debugging)
@@ -173,7 +172,7 @@ function [p, valid, err_msg] = delta_FK(params, theta)
         P_i = p + Rp*[cos(phi(i)); sin(phi(i)); 0];
         E_i_full = [(Rb+L1*cos(theta(i)))*cos(phi(i));
                     (Rb+L1*cos(theta(i)))*sin(phi(i));
-                    L1*sin(theta(i))];
+                    -L1*sin(theta(i))];
         resid = norm(E_i_full - P_i) - L2;
         fprintf('Chain %d residual: %.2e m\n', i, resid);
     end

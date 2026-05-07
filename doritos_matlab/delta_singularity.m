@@ -44,7 +44,7 @@ function [Jx, Jq, type1, type2, info] = delta_singularity(params, theta)
 %
 % where  v_i = L1 * [-sin(theta_i)*cos(phi_i),
 %                    -sin(theta_i)*sin(phi_i),
-%                     cos(theta_i)]'
+%                    -cos(theta_i)]'
 %
 % Defining the forearm unit vector:
 %   n_i = (E_i - P_i) / L2
@@ -130,7 +130,6 @@ function [Jx, Jq, type1, type2, info] = delta_singularity(params, theta)
     Rb  = params.Rb;
     Rp  = params.Rp;
     L1  = params.L1;
-    L2  = params.L2;
     phi = params.phi;
 
     % --- Run FK to obtain end-effector position --------------------------
@@ -153,9 +152,9 @@ function [Jx, Jq, type1, type2, info] = delta_singularity(params, theta)
         st = sin(theta(i));
 
         % Elbow position
-        E_i = [(Rb + L1*ct)*cp;
-               (Rb + L1*ct)*sp;
-                L1*st];
+         E_i = [(Rb + L1*ct)*cp;
+             (Rb + L1*ct)*sp;
+             -L1*st];
 
         % Platform attachment
         P_i = p + Rp*[cp; sp; 0];
@@ -172,8 +171,8 @@ function [Jx, Jq, type1, type2, info] = delta_singularity(params, theta)
         end
 
         % Elbow tangent (partial derivative of E_i w.r.t. theta_i)
-        %   dE_i/dtheta_i = L1 * [-st*cp, -st*sp, ct]'
-        v_i = L1 * [-st*cp; -st*sp; ct];
+        %   dE_i/dtheta_i = L1 * [-st*cp, -st*sp, -ct]'
+        v_i = L1 * [-st*cp; -st*sp; -ct];
 
         % Fill Jacobians
         Jx(i, :)  = n_i';

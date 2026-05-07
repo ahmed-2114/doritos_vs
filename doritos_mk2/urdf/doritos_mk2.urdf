@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="doritos_mk2">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.000666350210756228 -0.00233647748253474 -0.0721450971913769"
+        rpy="0 0 0" />
+      <mass
+        value="1.51650893419613" />
+      <inertia
+        ixx="0.00802866823936534"
+        ixy="-5.2140410997643E-06"
+        ixz="3.88552418406049E-06"
+        iyy="0.00806034512163369"
+        iyz="-1.47248510067451E-05"
+        izz="0.0116698719091758" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="stepper_link_1">
+    <inertial>
+      <origin
+        xyz="-0.0441699026757919 0.000734864413863612 -0.0165926967109177"
+        rpy="0 0 0" />
+      <mass
+        value="0.0370136582432435" />
+      <inertia
+        ixx="3.12123829676031E-06"
+        ixy="5.08568627155768E-07"
+        ixz="-6.16706273441E-07"
+        iyy="3.36809139584535E-05"
+        iyz="1.02602737996819E-08"
+        izz="3.50908182309386E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/stepper_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/stepper_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="stepper_joint_1"
+    type="continuous">
+    <origin
+      xyz="0.0452224318643407 -0.0443275496308621 -0.0579999999999925"
+      rpy="1.57079632679489 0 2.0943951023932" />
+    <parent
+      link="base_link" />
+    <child
+      link="stepper_link_1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="right_link_1">
+    <inertial>
+      <origin
+        xyz="0.0528663323357675 -0.0571415921325875 0.00111840945299271"
+        rpy="0 0 0" />
+      <mass
+        value="0.0096597651133856" />
+      <inertia
+        ixx="2.59571055938518E-06"
+        ixy="2.19926971307666E-06"
+        ixz="-1.50945318617451E-08"
+        iyy="2.25292290559056E-06"
+        iyz="1.66732261686969E-08"
+        izz="4.67333119708773E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_joint_1"
+    type="continuous">
+    <origin
+      xyz="-0.0799889341570513 0.00133079453105545 0.00903081744789805"
+      rpy="0 0 0" />
+    <parent
+      link="stepper_link_1" />
+    <child
+      link="right_link_1" />
+    <axis
+      xyz="0.731856335636987 0.677545199908743 0.072930145129584" />
+  </joint>
+  <link
+    name="buffer_link_1">
+    <inertial>
+      <origin
+        xyz="1.56565538311781E-10 1.44678713454027E-10 0.000159987489600055"
+        rpy="0 0 0" />
+      <mass
+        value="0.00102265385859043" />
+      <inertia
+        ixx="1.59789665404754E-08"
+        ixy="-1.17549435082229E-38"
+        ixz="-4.13590306276748E-25"
+        iyy="1.59789665404754E-08"
+        iyz="0"
+        izz="1.59789665404754E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="buffer_joint_1"
+    type="continuous">
+    <origin
+      xyz="0.105732013812519 -0.114291792145172 0.000785813818592801"
+      rpy="0 0 0" />
+    <parent
+      link="right_link_1" />
+    <child
+      link="buffer_link_1" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="left_link_1">
+    <inertial>
+      <origin
+        xyz="0.0528656149880057 -0.057150177472719 -0.000332595362884797"
+        rpy="0 0 0" />
+      <mass
+        value="0.00965976648912766" />
+      <inertia
+        ixx="2.59568246111661E-06"
+        ixy="2.19927175065307E-06"
+        ixz="-1.50882724982191E-08"
+        iyy="2.25295068761005E-06"
+        iyz="1.66662643455242E-08"
+        izz="4.67333103108257E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_joint_1"
+    type="continuous">
+    <origin
+      xyz="-0.0799889339060277 0.00133079848229811 -0.0430308313919701"
+      rpy="0 0 0" />
+    <parent
+      link="stepper_link_1" />
+    <child
+      link="left_link_1" />
+    <axis
+      xyz="0.731867521824822 0.677554561719078 0.0727306427282319" />
+  </joint>
+  <link
+    name="gripper_link">
+    <inertial>
+      <origin
+        xyz="0.0341024384595902 -0.0263807695753204 0.0250790248173186"
+        rpy="0 0 0" />
+      <mass
+        value="0.105456847213634" />
+      <inertia
+        ixx="3.33718782111917E-05"
+        ixy="3.52583430747584E-07"
+        ixz="6.80255114611308E-06"
+        iyy="5.47682158648942E-05"
+        iyz="7.26963144346707E-07"
+        izz="4.1031797217604E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/gripper_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/gripper_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="gripper_joint"
+    type="continuous">
+    <origin
+      xyz="0.105731963309902 -0.114291838863073 0.000785814206828633"
+      rpy="0 0 0" />
+    <parent
+      link="left_link_1" />
+    <child
+      link="gripper_link" />
+    <axis
+      xyz="0.483798888777823 0.727148603602628 0.487025198009397" />
+  </joint>
+  <link
+    name="left_tip_link">
+    <inertial>
+      <origin
+        xyz="-0.00321659274975095 -0.0113742629340172 5.55111512312578E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.0122108352099973" />
+      <inertia
+        ixx="2.12898781908147E-06"
+        ixy="-5.12593703605801E-07"
+        ixz="3.9104660491974E-21"
+        iyy="1.09812966791197E-06"
+        iyz="-1.59629005629444E-21"
+        izz="3.02360356682681E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_tip_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_tip_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_tip_joint"
+    type="continuous">
+    <origin
+      xyz="0.0474353275903836 -0.0419999138299398 0.0190308176469913"
+      rpy="-3.14159109808288 -0.52359975420864 3.14159265358979" />
+    <parent
+      link="gripper_link" />
+    <child
+      link="left_tip_link" />
+    <axis
+      xyz="0 0 0.999999999993893" />
+  </joint>
+  <link
+    name="right_tip_link">
+    <inertial>
+      <origin
+        xyz="0.00361579174547078 -0.0127029855345779 0.00120800981779368"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108947398917087" />
+      <inertia
+        ixx="1.90097775103117E-06"
+        ixy="4.57625496504311E-07"
+        ixz="-1.15024015328759E-08"
+        iyy="1.02085688721378E-06"
+        iyz="4.04101924475998E-08"
+        izz="2.75059645888704E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_tip_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_tip_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_tip_joint"
+    type="continuous">
+    <origin
+      xyz="0.0239366360159801 -0.0419999371599868 0.0343298793945149"
+      rpy="-3.1415916093844 -0.523599754209797 -3.14159163098849" />
+    <parent
+      link="gripper_link" />
+    <child
+      link="right_tip_link" />
+    <axis
+      xyz="0 0 0.999999999993893" />
+  </joint>
+  <link
+    name="stepper_link_2">
+    <inertial>
+      <origin
+        xyz="-0.0441739782439768 0.000424233004006513 -0.0165926967126432"
+        rpy="0 0 0" />
+      <mass
+        value="0.0370136582328562" />
+      <inertia
+        ixx="3.11559697102952E-06"
+        ixy="2.93620751592681E-07"
+        ixz="-6.16763175139559E-07"
+        iyy="3.36865552838303E-05"
+        iyz="5.92319531301857E-09"
+        izz="3.50908182309218E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/stepper_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/stepper_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="stepper_joint_2"
+    type="continuous">
+    <origin
+      xyz="-0.0609999999999855 -0.0170000000000011 -0.0579999999999909"
+      rpy="1.5707963267949 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="stepper_link_2" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="right_link_2">
+    <inertial>
+      <origin
+        xyz="0.0531718770623258 -0.0568646967742479 0.000505729106871966"
+        rpy="0 0 0" />
+      <mass
+        value="0.00965976520398288" />
+      <inertia
+        ixx="2.5722874341266E-06"
+        ixy="2.20100571867161E-06"
+        ixz="8.68228383895112E-09"
+        iyy="2.27626703003086E-06"
+        iyz="-9.09457486142198E-09"
+        izz="4.673410221932E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_joint_2"
+    type="continuous">
+    <origin
+      xyz="-0.0799963147746872 0.000768260462808534 0.0090308174478978"
+      rpy="0 0 0" />
+    <parent
+      link="stepper_link_2" />
+    <child
+      link="right_link_2" />
+    <axis
+      xyz="0.707854280258824 0.662800527501391 -0.244208473774231" />
+  </joint>
+  <link
+    name="buffer_link_2">
+    <inertial>
+      <origin
+        xyz="1.56565316267177E-10 -2.86362267232221E-10 0.000159987489599445"
+        rpy="0 0 0" />
+      <mass
+        value="0.00102265385859043" />
+      <inertia
+        ixx="1.59789665404754E-08"
+        ixy="0"
+        ixz="4.1325973271096E-37"
+        iyy="1.59789665404754E-08"
+        iyz="0"
+        izz="1.59789665404754E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="buffer_joint_2"
+    type="continuous">
+    <origin
+      xyz="0.106338986520719 -0.113729275187162 -0.000439565694554944"
+      rpy="0 0 0" />
+    <parent
+      link="right_link_2" />
+    <child
+      link="buffer_link_2" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="left_link_2">
+    <inertial>
+      <origin
+        xyz="0.0531670786738391 -0.0568645288799894 -0.000945294320995771"
+        rpy="0 0 0" />
+      <mass
+        value="0.00965976661922167" />
+      <inertia
+        ixx="2.57225679126701E-06"
+        ixy="2.20100763187596E-06"
+        ixz="8.68871745729538E-09"
+        iyy="2.27629764545002E-06"
+        iyz="-9.10131514189798E-09"
+        izz="4.67341004541302E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_joint_2"
+    type="continuous">
+    <origin
+      xyz="-0.0799963145514557 0.000768264415718756 -0.0430308313919702"
+      rpy="0 0 0" />
+    <parent
+      link="stepper_link_2" />
+    <child
+      link="left_link_2" />
+    <axis
+      xyz="0.708407053008025 0.663306254390772 -0.241214137509744" />
+  </joint>
+  <link
+    name="buffer_link_3">
+    <inertial>
+      <origin
+        xyz="3.59002716443513E-10 -1.36443079057358E-10 -0.0001599874896"
+        rpy="0 0 0" />
+      <mass
+        value="0.00102265385859043" />
+      <inertia
+        ixx="1.59789665404754E-08"
+        ixy="0"
+        ixz="4.1325973271096E-37"
+        iyy="1.59789665404754E-08"
+        iyz="0"
+        izz="1.59789665404754E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="buffer_joint_3"
+    type="continuous">
+    <origin
+      xyz="0.106338934772755 -0.113729185478581 -0.000439561584581249"
+      rpy="0 0 0" />
+    <parent
+      link="left_link_2" />
+    <child
+      link="buffer_link_3" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="dc_link">
+    <inertial>
+      <origin
+        xyz="-0.0469103958201728 0.00243273224304286 -0.0105619401606405"
+        rpy="0 0 0" />
+      <mass
+        value="0.0351771156349421" />
+      <inertia
+        ixx="2.93507917104199E-06"
+        ixy="1.32035538140574E-06"
+        ixz="5.78444293557189E-08"
+        iyy="3.00333752450836E-05"
+        iyz="-2.8117907575628E-09"
+        izz="3.1711996549672E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/dc_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/dc_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="dc_joint"
+    type="continuous">
+    <origin
+      xyz="0.0213857162260318 0.0580896843192248 -0.0600000095102151"
+      rpy="1.5707963267949 0 -2.09439510239319" />
+    <parent
+      link="base_link" />
+    <child
+      link="dc_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="right_link_3">
+    <inertial>
+      <origin
+        xyz="0.0524820198652365 -0.0575014894596062 0.00055245228769385"
+        rpy="0 0 0" />
+      <mass
+        value="0.00965973983571027" />
+      <inertia
+        ixx="2.62522059724956E-06"
+        ixy="2.19681080810797E-06"
+        ixz="6.67352033718929E-09"
+        iyy="2.22331884783331E-06"
+        iyz="-7.31206604384961E-09"
+        izz="4.67342265927018E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/right_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_link_3"
+    type="continuous">
+    <origin
+      xyz="-0.0799807434244639 0.00404026335369112 0.0155065537352558"
+      rpy="0 0 0" />
+    <parent
+      link="dc_link" />
+    <child
+      link="right_link_3" />
+    <axis
+      xyz="0.046916018936789 0.0458239562511344 -0.997847208845431" />
+  </joint>
+  <link
+    name="buffer_link_4">
+    <inertial>
+      <origin
+        xyz="1.56565649334084E-10 1.41684441956613E-10 0.000159987489599778"
+        rpy="0 0 0" />
+      <mass
+        value="0.00102265385859043" />
+      <inertia
+        ixx="1.59789665404754E-08"
+        ixy="0"
+        ixz="0"
+        iyy="1.59789665404754E-08"
+        iyz="4.70197740328915E-38"
+        izz="1.59789665404754E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="buffer_joint_4"
+    type="continuous">
+    <origin
+      xyz="0.104962400256254 -0.115001150962942 -0.000346134894921191"
+      rpy="0 0 0" />
+    <parent
+      link="right_link_3" />
+    <child
+      link="buffer_link_4" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+  <link
+    name="left_link_3">
+    <inertial>
+      <origin
+        xyz="0.0524803132986446 -0.0574996390803384 -0.000898586970144888"
+        rpy="0 0 0" />
+      <mass
+        value="0.00965974007965741" />
+      <inertia
+        ixx="2.62519260291201E-06"
+        ixy="2.19681334386598E-06"
+        ixz="6.67980479852628E-09"
+        iyy="2.22334689284441E-06"
+        iyz="-7.3188583027953E-09"
+        izz="4.67342262250008E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/left_link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_joint_3"
+    type="continuous">
+    <origin
+      xyz="-0.0799807434244637 0.00404026335368735 -0.0365550909947446"
+      rpy="0 0 0" />
+    <parent
+      link="dc_link" />
+    <child
+      link="left_link_3" />
+    <axis
+      xyz="0.0469160777667466 0.0458239704704889 -0.997847205426414" />
+  </joint>
+  <link
+    name="buffer_link_5">
+    <inertial>
+      <origin
+        xyz="-1.56565538311781E-10 -1.41684441956613E-10 -0.000159987489600111"
+        rpy="0 0 0" />
+      <mass
+        value="0.00102265385859043" />
+      <inertia
+        ixx="1.59789665404754E-08"
+        ixy="0"
+        ixz="0"
+        iyy="1.59789665404754E-08"
+        iyz="4.70197740328915E-38"
+        izz="1.59789665404754E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://doritos_mk2/meshes/buffer_link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="buffer_joint_5"
+    type="continuous">
+    <origin
+      xyz="0.104962349424341 -0.115001197360013 -0.000346134894884553"
+      rpy="0 0 0" />
+    <parent
+      link="left_link_3" />
+    <child
+      link="buffer_link_5" />
+    <axis
+      xyz="0 1 0" />
+  </joint>
+</robot>

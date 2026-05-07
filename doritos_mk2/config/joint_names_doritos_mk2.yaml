@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'stepper_joint_1', 'right_joint_1', 'buffer_joint_1', 'left_joint_1', 'gripper_joint', 'left_tip_joint', 'right_tip_joint', 'stepper_joint_2', 'right_joint_2', 'buffer_joint_2', 'left_joint_2', 'buffer_joint_3', 'dc_joint', 'left_link_3', 'buffer_joint_4', 'left_joint_3', 'buffer_joint_5', ]

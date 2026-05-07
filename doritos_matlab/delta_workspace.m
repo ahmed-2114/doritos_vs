@@ -17,7 +17,7 @@ function [points, in_ws] = delta_workspace(params, varargin)
 %       [points, in_ws] = delta_workspace(params, 'plot', false)
 %
 %   Single-point membership test (fast, no plot):
-%       in_ws = delta_workspace(params, 'check', [0; 0; 0.35])
+%       in_ws = delta_workspace(params, 'check', [0; 0; -0.18])
 %
 % =========================================================================
 % INPUTS
@@ -47,8 +47,8 @@ function [points, in_ws] = delta_workspace(params, varargin)
 %     - Outer boundary: maximum arm extension  (L1 + L2) - (Rb - Rp)
 %     - Inner boundary: minimum arm extension  |L2 - L1| - (Rb - Rp)
 %                       (annular dead zone at the centre if L1 ≈ L2)
-%     - Upper boundary (z_min): joint upper-limit plane
-%     - Lower boundary (z_max): joint lower-limit plane
+%     - Upper boundary (z_max): near the base plane
+%     - Lower boundary (z_min): farther below the base plane
 %     - Lateral tilt: asymmetric shrinkage away from robot centre
 %
 % =========================================================================
@@ -187,8 +187,6 @@ function [points, in_ws] = delta_workspace(params, varargin)
         grid(ax, 'on');
         axis(ax, 'equal');
         view(ax, 45, 25);
-        set(ax, 'ZDir', 'reverse');   % flip Z-axis so workspace appears below base
-
         % Projected XZ slice at Y=0
         subplot_ax = axes(fig, 'Position', [0.72, 0.12, 0.23, 0.30]);
         near_mid = abs(reach(:,2)) < (lim(2,2) - lim(2,1)) / (2*res);
@@ -198,7 +196,6 @@ function [points, in_ws] = delta_workspace(params, varargin)
             xlabel(subplot_ax, 'X [mm]', 'FontSize', 8);
             ylabel(subplot_ax, 'Z [mm]', 'FontSize', 8);
             title(subplot_ax, 'XZ slice (Y≈0)', 'FontSize', 8);
-            set(subplot_ax, 'YDir', 'reverse');
             grid(subplot_ax, 'on');
         end
 
