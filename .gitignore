@@ -1,6 +1,47 @@
-/slprj
-/slx_unpack
-/tmp_slx
-doritos.slx
-doritoss.zip
+# MATLAB and Simulink generated folders
+/slprj/
+/**/slprj/
+/tmp_slx/
+/slx_unpack/
+/codegen/
+
+# Simulink caches, backups, and autosaves
+*.slxc
+*.slx.autosave
+doritos_mk2/doritos_mk2_[0-9]*.slx
+*.autosave
+*.asv
+*.m~
+
+# Export/build byproducts
+*.zip
 export.log
+
+# Local editor and OS metadata
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Run logs and temporary inspection dumps
+*.log
+*_output.txt
+*_test_output.txt
+*_summary.txt
+scope_params.txt
+toworkspace_blocks.txt
+mk2_model_update_log.txt
+writing.mat/files/*_check.txt
+writing.mat/files/*_contents.txt
+
+# Generated analysis results that can be recreated from scripts
+doritos_matlab/ee268_analysis/*_results.mat
+doritos_matlab/ee268_analysis/*_context.mat
+doritos_matlab/ee268_analysis/*_test_results.mat
+doritos_matlab/ee268_analysis/*_report.txt
+doritos_matlab/ee268_analysis/*_test.log
+doritos_matlab/ee268_analysis/*_test_summary.txt
+doritos_matlab/delta_analysis_report.mat
+doritos_matlab/delta_manipulability_analysis.mat
+doritos_matlab/delta_manipulability_analysis.png
+doritos_matlab/delta_workspace_surface.mat
+doritos_matlab/delta_workspace_surface.png

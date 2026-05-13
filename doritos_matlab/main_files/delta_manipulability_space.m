@@ -1,6 +1,5 @@
 function analysis = delta_manipulability_space(params, varargin)
-% DELTA_MANIPULABILITY_SPACE  Sample the reachable workspace and compute
-% manipulability and singularity metrics at each reachable point.
+% DELTA_MANIPULABILITY_SPACE  Sample workspace manipulability and singularity.
 
 res = 21;
 do_plot = true;

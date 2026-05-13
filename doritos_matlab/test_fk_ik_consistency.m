@@ -3,14 +3,14 @@ clc;
 
 params = delta_params();
 
-% A few small, centered test points that are likely to sit inside the
-% nominal workspace for the current robot dimensions.
+% A few centered test points inside the current workspace. The model uses
+% +Z upward, so reachable points sit below the base at negative Z.
 test_points = [
-     0.000,  0.000, 0.160;
-     0.010,  0.000, 0.170;
-    -0.010,  0.010, 0.180;
-     0.000, -0.015, 0.190;
-     0.012, -0.008, 0.200
+     0.000,  0.000, -0.1218;
+     0.000,  0.000, -0.1500;
+     0.020,  0.000, -0.1600;
+    -0.020,  0.020, -0.1800;
+     0.030, -0.020, -0.1900
 ];
 
 num_points = size(test_points, 1);

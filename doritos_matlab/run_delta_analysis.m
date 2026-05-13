@@ -46,13 +46,15 @@ report.home_type2 = type2_home;
 report.home_cond_Jx = info_home.cond_Jx;
 report.home_det_Jx = info_home.det_Jx;
 
-report_file = fullfile(fileparts(mfilename('fullpath')), 'delta_analysis_report.mat');
-save(report_file, 'report');
-report.report_file = report_file;
-
 fprintf('Home pose singularity: type1=%s, type2=%s, cond(Jx)=%.3f\n', ...
         mat2str(type1_home), mat2str(type2_home), info_home.cond_Jx);
 fprintf('Workspace bounds [m]:\n');
 disp(analysis.summary.bounds);
-fprintf('Analysis report saved: %s\n', report_file);
+
+if save_outputs
+    report_file = fullfile(fileparts(mfilename('fullpath')), 'delta_analysis_report.mat');
+    save(report_file, 'report');
+    report.report_file = report_file;
+    fprintf('Analysis report saved: %s\n', report_file);
+end
 end
