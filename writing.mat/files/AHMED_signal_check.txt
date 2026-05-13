@@ -1,6 +1,0 @@
-X double [7067 1]
-Y double [7067 1]
-Z double [7067 1]
-scenario Simulink.SimulationData.Dataset [1 1]
-time double [7067 1]
-scenario_is_dataset=1

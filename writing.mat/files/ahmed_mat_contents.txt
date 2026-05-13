@@ -1,4 +1,0 @@
-X double [7067 1]
-Y double [7067 1]
-Z double [7067 1]
-time double [7067 1]
