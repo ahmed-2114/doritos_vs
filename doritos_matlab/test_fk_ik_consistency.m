@@ -6,7 +6,7 @@ params = delta_params();
 % A few centered test points inside the current workspace. The model uses
 % +Z upward, so reachable points sit below the base at negative Z.
 test_points = [
-     0.000,  0.000, -0.1218;
+     params.home_pos.';
      0.000,  0.000, -0.1500;
      0.020,  0.000, -0.1600;
     -0.020,  0.020, -0.1800;

@@ -32,7 +32,7 @@ fprintf('Home pose: [%.4f %.4f %.4f] m\n', params.home_pos(1), params.home_pos(2
 [points, in_ws] = delta_workspace(params, 'res', res, 'plot', do_plot);
 analysis = delta_manipulability_space(params, 'res', res, 'plot', do_plot, 'save', save_outputs);
 
-home_theta = deg2rad([0; 0; 0]);
+home_theta = delta_command_to_model(params, repmat(params.home_command_deg, 3, 1));
 [~, ~, type1_home, type2_home, info_home] = delta_singularity(params, home_theta);
 
 report = struct();

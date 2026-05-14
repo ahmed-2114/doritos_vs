@@ -35,7 +35,7 @@ app.homeThetaDeg = [0, 0, 0];
 app.homeEE = results.context.ee_home(:).';
 app.currentThetaDeg = app.homeThetaDeg;
 app.currentEE = app.homeEE;
-app.thetaLimitsDeg = rad2deg([params.th_min, params.th_max]);
+app.thetaLimitsDeg = [params.command_min_deg, params.command_max_deg];
 app.thresholdLevels = [0.10, 0.20, 0.35, 0.50, 0.65, 0.80];
 app.visual = buildVisualModel();
 app.sim.modelPath = fullfile(project_root, '..', 'doritos_mk2', 'doritos_mk2.slx');
@@ -556,6 +556,7 @@ app.manualStatus.Layout.Column = [1 3];
 initializePlotHandles();
 recomputeThresholdMasks();
 syncUIToTheta(app.currentThetaDeg, true);
+publishSimulinkState(false);
 
     function initializePlotHandles()
         cla(app.ax);
@@ -770,23 +771,23 @@ syncUIToTheta(app.currentThetaDeg, true);
     end
 
     function applyThetaSlider(thetaIdx, value, commit)
-        thetaDeg = app.currentThetaDeg;
-        thetaDeg(thetaIdx) = value;
-        thetaRad = deg2rad(thetaDeg(:));
-        [platformPoint, fkOk, fkMsg] = delta_FK(app.params, thetaRad);
+        thetaCommandDeg = app.currentThetaDeg;
+        thetaCommandDeg(thetaIdx) = value;
+        thetaModelRad = delta_command_to_model(app.params, thetaCommandDeg(:));
+        [platformPoint, fkOk, fkMsg] = delta_FK(app.params, thetaModelRad);
         if ~fkOk
             updateInfoPanel(['FK invalid: ' fkMsg]);
             return
         end
 
         eePoint = (platformPoint + app.results.context.tool_offset_base)';
-        syncUIToTheta(thetaDeg, commit, eePoint);
+        syncUIToTheta(thetaCommandDeg, commit, eePoint);
     end
 
-    function syncUIToTheta(thetaDeg, commit, eePoint)
+    function syncUIToTheta(thetaCommandDeg, commit, eePoint)
         if nargin < 3
-            thetaRad = deg2rad(thetaDeg(:));
-            [platformPoint, fkOk, fkMsg] = delta_FK(app.params, thetaRad);
+            thetaModelRad = delta_command_to_model(app.params, thetaCommandDeg(:));
+            [platformPoint, fkOk, fkMsg] = delta_FK(app.params, thetaModelRad);
             if ~fkOk
                 updateInfoPanel(['FK invalid: ' fkMsg]);
                 return
@@ -798,19 +799,19 @@ syncUIToTheta(app.currentThetaDeg, true);
             commit = true;
         end
 
-        snapToReachableEE(eePoint, commit, thetaDeg);
+        snapToReachableEE(eePoint, commit, thetaCommandDeg);
     end
 
-    function snapToReachableEE(targetEE, commit, thetaDegOverride, primaryAxis)
+    function snapToReachableEE(targetEE, commit, thetaCommandDegOverride, primaryAxis)
         if nargin < 3
-            thetaDegOverride = [];
+            thetaCommandDegOverride = [];
         end
         if nargin < 4
             primaryAxis = '';
         end
 
         app.isUpdating = true;
-        if isempty(thetaDegOverride)
+        if isempty(thetaCommandDegOverride)
             if isempty(primaryAxis)
                 targetEE = snapCoordinate(targetEE, 'x');
                 targetEE = snapCoordinate(targetEE, 'y');
@@ -825,36 +826,36 @@ syncUIToTheta(app.currentThetaDeg, true);
         app.currentEE = targetEE;
 
         platformPoint = targetEE(:) - app.results.context.tool_offset_base;
-        if ~isempty(thetaDegOverride)
-            thetaDeg = thetaDegOverride;
+        if ~isempty(thetaCommandDegOverride)
+            thetaCommandDeg = thetaCommandDegOverride;
         else
             [thetaIK, ikOk] = delta_IK(app.params, platformPoint);
             if ikOk
-                thetaDeg = rad2deg(thetaIK(:)).';
+                thetaCommandDeg = delta_model_to_command(app.params, thetaIK(:)).';
             else
-                thetaDeg = rad2deg(app.results.reach_theta(nearestIdx, :));
+                thetaCommandDeg = delta_model_to_command(app.params, app.results.reach_theta(nearestIdx, :).').';
             end
         end
-        if isempty(thetaDegOverride) && ~exist('ikOk', 'var')
+        if isempty(thetaCommandDegOverride) && ~exist('ikOk', 'var')
             ikOk = true;
         end
-        if exist('ikOk', 'var') && ~ikOk && isempty(thetaDegOverride)
-            thetaDeg = rad2deg(app.results.reach_theta(nearestIdx, :));
+        if exist('ikOk', 'var') && ~ikOk && isempty(thetaCommandDegOverride)
+            thetaCommandDeg = delta_model_to_command(app.params, app.results.reach_theta(nearestIdx, :).').';
         end
-        thetaDeg = clampThetaDeg(thetaDeg);
-        app.currentThetaDeg = thetaDeg;
+        thetaCommandDeg = clampThetaDeg(thetaCommandDeg);
+        app.currentThetaDeg = thetaCommandDeg;
 
         updateSliderLimits(targetEE);
 
         app.sldX.Value = targetEE(1); app.xValue.Value = targetEE(1) * 1e3;
         app.sldY.Value = targetEE(2); app.yValue.Value = targetEE(2) * 1e3;
         app.sldZ.Value = targetEE(3); app.zValue.Value = targetEE(3) * 1e3;
-        app.sldT1.Value = thetaDeg(1); app.t1Value.Value = thetaDeg(1);
-        app.sldT2.Value = thetaDeg(2); app.t2Value.Value = thetaDeg(2);
-        app.sldT3.Value = thetaDeg(3); app.t3Value.Value = thetaDeg(3);
+        app.sldT1.Value = thetaCommandDeg(1); app.t1Value.Value = thetaCommandDeg(1);
+        app.sldT2.Value = thetaCommandDeg(2); app.t2Value.Value = thetaCommandDeg(2);
+        app.sldT3.Value = thetaCommandDeg(3); app.t3Value.Value = thetaCommandDeg(3);
 
         set(app.hCurrent, 'XData', targetEE(1) * 1e3, 'YData', targetEE(2) * 1e3, 'ZData', targetEE(3) * 1e3);
-    updateRobotOverlay(thetaDeg);
+        updateRobotOverlay(thetaCommandDeg);
         updateInfoPanel();
         maybeRecordTrace(targetEE, commit);
         maybeAutoPublishState();
@@ -1008,10 +1009,11 @@ syncUIToTheta(app.currentThetaDeg, true);
             extraMessage = '';
         end
         platformPoint = app.currentEE(:) - app.results.context.tool_offset_base;
-        [theta, ikOk, ikMsg] = delta_IK(app.params, platformPoint);
+        [thetaModel, ikOk, ikMsg] = delta_IK(app.params, platformPoint);
         if ikOk
-            thetaDisplay = rad2deg(theta(:)).';
-            [~, ~, type1, type2, info] = delta_singularity(app.params, theta);
+            thetaDisplay = delta_model_to_command(app.params, thetaModel(:)).';
+            thetaModelDisplay = rad2deg(thetaModel(:)).';
+            [~, ~, type1, type2, info] = delta_singularity(app.params, thetaModel);
             manipVal = prod(svd((info.n_vecs'' * 0 + eye(3)))); %#ok<NASGU>
             % Use the nearest sampled point for stable displayed metrics.
             [~, idxNearest] = findNearestReachable(app.currentEE);
@@ -1020,6 +1022,7 @@ syncUIToTheta(app.currentThetaDeg, true);
             jointMargin = app.results.joint_margin(idxNearest);
         else
             thetaDisplay = app.currentThetaDeg;
+            thetaModelDisplay = rad2deg(delta_command_to_model(app.params, thetaDisplay(:))).';
             type1 = false;
             type2 = false;
             manipVal = NaN;
@@ -1034,7 +1037,8 @@ syncUIToTheta(app.currentThetaDeg, true);
             sprintf('Gripper top Z    : %7.2f mm', app.currentEE(3) * 1e3 + app.visual.gripperTopOffsetMm)
             sprintf('Rotation point Z : %7.2f mm', app.currentEE(3) * 1e3 + app.visual.rotationPointOffsetMm)
             sprintf('Tip end Z        : %7.2f mm', app.currentEE(3) * 1e3 - app.visual.tipOffsetMm)
-            sprintf('Theta [deg]      : [%7.2f, %7.2f, %7.2f]', thetaDisplay(1), thetaDisplay(2), thetaDisplay(3))
+            sprintf('Theta cmd [deg]  : [%7.2f, %7.2f, %7.2f]', thetaDisplay(1), thetaDisplay(2), thetaDisplay(3))
+            sprintf('Theta model [deg]: [%7.2f, %7.2f, %7.2f]', thetaModelDisplay(1), thetaModelDisplay(2), thetaModelDisplay(3))
             sprintf('Manipulability   : %.5f | threshold %.5f', manipVal, app.results.manip_threshold)
             sprintf('1 / cond(Jx)     : %.5f | threshold %.5f', invCondVal, app.results.clearance_threshold)
             sprintf('Joint margin     : %.5f', jointMargin)
@@ -1103,7 +1107,7 @@ syncUIToTheta(app.currentThetaDeg, true);
         updateManualStatus({ ...
             sprintf('Manual jog: %s %+0.1f mm', upper(axisName), direction * stepMm), ...
             sprintf('Reached EE [mm]: [%.1f %.1f %.1f]', app.currentEE(1) * 1e3, app.currentEE(2) * 1e3, app.currentEE(3) * 1e3), ...
-            sprintf('Theta [deg]    : [%.2f %.2f %.2f]', app.currentThetaDeg(1), app.currentThetaDeg(2), app.currentThetaDeg(3)) ...
+            sprintf('Theta cmd [deg]: [%.2f %.2f %.2f]', app.currentThetaDeg(1), app.currentThetaDeg(2), app.currentThetaDeg(3)) ...
             });
     end
 
@@ -1304,6 +1308,8 @@ syncUIToTheta(app.currentThetaDeg, true);
         assignin('base', 'ee268_ui_xyz', simState.ee_xyz_m);
         assignin('base', 'ee268_ui_theta_deg', simState.theta_deg);
         assignin('base', 'ee268_ui_theta_rad', simState.theta_rad);
+        assignin('base', 'ee268_ui_theta_model_deg', simState.theta_model_deg);
+        assignin('base', 'ee268_ui_theta_model_rad', simState.theta_model_rad);
         assignin('base', 'ee268_ui_x_ref_ts', simState.x_ref_ts);
         assignin('base', 'ee268_ui_y_ref_ts', simState.y_ref_ts);
         assignin('base', 'ee268_ui_z_ref_ts', simState.z_ref_ts);
@@ -1320,7 +1326,7 @@ syncUIToTheta(app.currentThetaDeg, true);
             updateSimStatus({ ...
                 'Published current UI pose to base workspace.', ...
                 sprintf('EE [m]    : [%.4f %.4f %.4f]', simState.ee_xyz_m(1), simState.ee_xyz_m(2), simState.ee_xyz_m(3)), ...
-                sprintf('Theta [deg]: [%.2f %.2f %.2f]', simState.theta_deg(1), simState.theta_deg(2), simState.theta_deg(3)), ...
+                sprintf('Theta cmd [deg]: [%.2f %.2f %.2f]', simState.theta_deg(1), simState.theta_deg(2), simState.theta_deg(3)), ...
                 sprintf('Hold refs  : x_ref_ts, y_ref_ts, z_ref_ts for %.2f s', simState.hold_duration_s) ...
                 });
         end
@@ -1415,8 +1421,10 @@ syncUIToTheta(app.currentThetaDeg, true);
         holdDuration = 0.5;
         t = [0; holdDuration];
         ee = app.currentEE(:);
-        thetaDeg = app.currentThetaDeg(:).';
-        thetaRad = deg2rad(thetaDeg);
+        thetaCommandDeg = app.currentThetaDeg(:).';
+        thetaCommandRad = deg2rad(thetaCommandDeg);
+        thetaModelRad = delta_command_to_model(app.params, thetaCommandDeg(:)).';
+        thetaModelDeg = rad2deg(thetaModelRad);
         gripperTop = ee + [0; 0; app.visual.gripperTopOffsetMm / 1e3];
         rotationPoint = ee + [0; 0; app.visual.rotationPointOffsetMm / 1e3];
         tip = ee + [0; 0; -app.visual.tipOffsetMm / 1e3];
@@ -1424,8 +1432,10 @@ syncUIToTheta(app.currentThetaDeg, true);
         simState = struct();
         simState.timestamp = datetime('now');
         simState.ee_xyz_m = ee.';
-        simState.theta_deg = thetaDeg;
-        simState.theta_rad = thetaRad;
+        simState.theta_deg = thetaCommandDeg;
+        simState.theta_rad = thetaCommandRad;
+        simState.theta_model_deg = thetaModelDeg;
+        simState.theta_model_rad = thetaModelRad;
         simState.gripper_top_m = gripperTop.';
         simState.rotation_point_m = rotationPoint.';
         simState.tip_m = tip.';
@@ -2204,8 +2214,8 @@ syncUIToTheta(app.currentThetaDeg, true);
         scenarios = struct('labels', {labels}, 'paths', {paths});
     end
 
-    function updateRobotOverlay(thetaDeg)
-        thetaRad = deg2rad(thetaDeg(:));
+    function updateRobotOverlay(thetaCommandDeg)
+        thetaRad = delta_command_to_model(app.params, thetaCommandDeg(:));
         [platformPoint, fkOk] = delta_FK(app.params, thetaRad);
         if ~fkOk
             return

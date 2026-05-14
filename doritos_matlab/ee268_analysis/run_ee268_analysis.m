@@ -1,6 +1,7 @@
 analysis_root = fileparts(mfilename('fullpath'));
 project_root = fileparts(analysis_root);
 addpath(project_root);
+addpath(fullfile(project_root, 'main_files'));
 
 cfg = struct();
 cfg.res_xyz = [50, 50, 50];
@@ -23,7 +24,7 @@ assignin('base', 'ee268_results', results);
 function context = build_ee268_context()
 params = delta_params();
 
-[platform_home, fk_ok, fk_msg] = delta_FK(params, deg2rad([0; 0; 0]));
+[platform_home, fk_ok, fk_msg] = delta_FK(params, delta_command_to_model(params, repmat(params.home_command_deg, 3, 1)));
 if ~fk_ok
     error('Failed to compute home pose from FK: %s', fk_msg);
 end
