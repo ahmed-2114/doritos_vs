@@ -2,6 +2,8 @@
 
 This repository contains the MATLAB analysis code, Simulink model, and ROS/URDF export assets for the Doritos MK2 delta robot project.
 
+For a simpler learning-oriented folder guide, start with `PROJECT_MAP.md`.
+
 ## Contents
 
 - `doritos_matlab/main_files/` - core delta robot kinematics and workspace functions:

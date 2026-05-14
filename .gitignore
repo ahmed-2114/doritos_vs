@@ -15,6 +15,7 @@ doritos_mk2/doritos_mk2_[0-9]*.slx
 
 # Export/build byproducts
 *.zip
+*.png
 export.log
 
 # Local editor and OS metadata
